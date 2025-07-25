@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EHRMS.com</title>
+    <link rel="stylesheet" href="{% static 'css/style3.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <section class="header" id="home">
+        <nav>
+            <h1>EHRMS</h1>
+            <div class="nav-links" id="navLinks">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#patient-instructions">About us</a></li>
+                    <li><a href="#contact">Contact us</a></li>
+                    <li><a href="login/">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="text-box">
+            <h1>Welcome to the Electronic Health Management System (EHRMS)</h1>
+            <p> Briefly introduce the system as a platform that simplifies healthcare record-keeping and appointment management for both patients and doctors. Highlight the project's goal of digitizing health records and streamlining doctor-patient interactions</p>
+            <button><a href="#patient-instructions">Visit Us To Know More</a></button>
+        </div>
+    </section>
+
+    <section class="patient-instructions" id="patient-instructions">
+        <h1>Instructions for Patients</h1>
+        <p>As a patient, you can easily manage your personal health records using the Electronic Health Record Management System. Follow the steps below to get started:</p>
+        <div class="row">
+            <div class="instruction-box">
+                <h2>Step 1: Create Your Account</h2>
+                <p>Register by providing your Aadhaar number, username, and password. Ensure your details are accurate for seamless access.</p>
+            </div>
+            <div class="instruction-box">
+                <h2>Step 2: Store Personal Records</h2>
+                <p>After registration, you can securely store all your personal and medical information, including medical history, current medications, and allergies.</p>
+            </div>
+            <div class="instruction-box">
+                <h2>Step 3: Maintain Health Records</h2>
+                <p>Regularly update your health records after each medical visit. This includes new diagnoses, medications prescribed, and follow-up appointments.</p>
+            </div>
+            <div class="instruction-box">
+                <h2>Step 4: View Your Records</h2>
+                <p>Easily access and review your health records at any time. This helps you keep track of your health status and share important information with your healthcare providers.</p>
+            </div>
+        </div>
+    </section>
+    
+
+    <section class="doctor-instructions">
+        <h1>Instructions for Doctors</h1>
+        <p>Follow the steps below to effectively use the Electronic Health Record Management System:</p>
+        <div class="row">
+            <div class="instruction-box">
+                <h2>Step 1: Login & Access Dashboard</h2>
+                <p>Doctors can log in using their assigned credentials (Doctor ID and password). Once logged in, you will be directed to your dashboard.</p>
+            </div>
+            <div class="instruction-box">
+                <h2>Step 2: Manage Appointments</h2>
+                <p>View and manage your appointments from the dashboard. You'll have access to patient details, appointment statuses, and any rescheduling options available.</p>
+            </div>
+            <div class="instruction-box">
+                <h2>Step 3: Update Patient Records</h2>
+                <p>After consultations, update patient records with necessary information such as diagnosis, prescribed medications, and follow-up instructions to ensure continuity of care.</p>
+            </div>
+            <div class="instruction-box">
+                <h2>Step 4: View Feedback</h2>
+                <p>Review patient feedback on your consultations to enhance your services and improve patient satisfaction.</p>
+            </div>
+        </div>
+    </section>    
+    
+    <section class="appointment-guide">
+        <h1>How to Book an Appointment</h1>
+        <div class="row">
+            <div class="guide-box">
+                <h2>1. Login to Your Account</h2>
+                <p>Login using your Patient ID, Aadhaar number, and password. You will be redirected to your dashboard after successful login.</p>
+            </div>
+            <div class="guide-box">
+                <h2>2. Select Doctor & Time Slot</h2>
+                <p>Go to the 'Book Appointment' section, select a doctor by specialization or hospital, and choose a time slot that works for you.</p>
+            </div>
+            <div class="guide-box">
+                <h2>3. Confirm Appointment</h2>
+                <p>Review the selected time and date, confirm the booking, and an Appointment ID will be generated. You can view the appointment details on your dashboard.</p>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <section class="contact" id="contact">
+        <div class="left-section">
+            <h3>How can we help you?</h3>
+            <h1>Contact Us</h1>
+            <p>If you have any questions, feedback, or need assistance, feel free to reach out to us!</p>
+            <p><i class="fa-solid fa-phone"></i>1-800-672-4399</p>
+            <p><i class="fa-brands fa-rocketchat"></i>Chat Now</p>
+            <p><i class="fa-regular fa-envelope"></i>Email Us</p>
+        </div>
+        <div class="right-section">
+            <form action="#" method="POST">
+                <table>
+                    <tr>
+                        <td style="width: 50px;"><strong>Name: </strong></td>
+                        <td style="width:140px;"><input type="text" id="name" name="name" required></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 30%;"><strong>Email: </strong></td>
+                        <td><input type="email" id="email" name="email" required></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 30%;"><strong>Message: </strong></td>
+                        <td><textarea id="message" name="message" rows="5" required></textarea></td>
+                    </tr>
+                </table>
+                <button class="content-btn" type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+    
+
+    <footer>
+    <div class="footer-container">
+        <h4>About EHRMS</h4>
+        <p>Electronic Health Record Management System (EHRMS) helps patients and healthcare providers efficiently manage health records. Our goal is to streamline healthcare access, improve record-keeping, and enhance patient care.</p>
+        <h4>Quick Links</h4>
+        <div class="footer-links">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#patient-instructions">About Us</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+            </ul>
+        </div>
+        <div class="social-icons">
+            <h4>Follow Us</h4>
+            <a href="https://www.facebook.com/krishna.budumuru.5"><i class="fab fa-facebook"></i></a>
+            <a href="https://x.com/BudumuruMohan"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.instagram.com/krishna_5488_/?hl=en"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/in/krishna-mohan-2a2971259/"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </div>
+    <p>© 2024 EHRMS. All Rights Reserved.</p>
+</footer>
+
+    
+</body>
+</html>

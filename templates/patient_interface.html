@@ -1,0 +1,546 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient interface</title>
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .up-down {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        
+        .logout {
+            width: 180px;
+            position: absolute;
+            left: 8px;
+            top: 50px;
+            display: none;
+            background-color: #f5f0f0;
+            padding: 10px 20px;
+            padding-right: 45px;
+            border-radius: 3px;
+        }
+        .logout a {
+            color: black;
+            text-decoration: none; 
+        }
+        .logout a:hover {
+            color: darkgray;
+        }
+        a{
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        .logout.show {
+            display: block; 
+        }
+        .side-bar-column{
+            align-items: start;
+            margin-left: 20px;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .side-bar-column {
+            padding: 15px;
+        }
+        .personal-information {
+            display: flex;
+            flex-direction: column;
+        }
+        .side-bar-column span{
+            margin-right: 8px;
+        }
+        .sidebar {
+            max-width: 275px;
+        }
+        .svg1{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <section class="header">
+        <nav>
+            <div class="logo">
+                <h1>EHRMS</h1>
+            </div>
+            <div class="notice">
+                <svg class="svg1" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="white" d="M399 384.2C376.9 345.8 335.4 320 288 320l-64 0c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"/></svg>
+                <div class="up-down" onclick="toggleLogout()">
+                    <li style="cursor: pointer;">{{pid}}</li>
+                    <li style="cursor: pointer;">{{pname}}</li>
+                    <div class="logout">
+                        <p style="padding-bottom: 8px;">
+                            <a style="color: black; text-decoration: none;" href="{% url 'logout' %}">Log out</a>
+                        </p>
+                        <p>
+                            <a style="color: black; text-decoration: none;" href="{% url 'patient_forget_password' %}">Forget Password</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+    </section>
+    <section>
+        <div class="grid-container">
+            <div class="sidebar">
+                <div class="side-bar-column icons side-bar-perosnal">
+                    <span><i class="fa-solid fa-id-card"></i></span>
+                    <div>Personal Information</div>
+                </div>
+                <div class="side-bar-column icons side-bar-perosnal-appointment" style="display: flex;">
+                    <span><i class="fa-regular fa-calendar-check"></i></span>
+                    <div><p>Book an Appointment</p></div>
+                </div>
+                <div class="side-bar-column icons side-bar-view-appointment" style="display: flex;">
+                    <span><i class="fa-solid fa-clipboard-list"></i></span>
+                    <div><p>View Appointments</p></div>
+                </div>
+                <div class="side-bar-column side-bar-records">
+                    <span><i class="fa-solid fa-database"></i></span>
+                    <div><p>Records Maintain</p></div>
+                </div>
+                <div class="side-bar-column side-bar-view-records">
+                    <span><i class="fa-solid fa-clipboard-list"></i></span>
+                    <div><p>View Records</p></div>
+                </div>
+                <div class="side-bar-column side-bar-doctors">
+                    <span><i class="fa-solid fa-stethoscope"></i></span>
+                    <div><p>View Doctors</p></div>    
+                </div>
+            </div>
+            <div class="main-part">
+                {{success}}
+                <div class="welcome">
+                    <div>Hi, <span>{{pname}}</span></div>
+                    <div class="front">Welcome</div>
+                </div>
+                <form class="personal-info-form" action="{% url 'patientDashboard' %}" method="POST"> 
+                     {% csrf_token %}
+                    <div class="personal">
+                        <h1>PERSONAL INFORMATION</h1>
+        
+                        <!-- Personal Details -->
+                        <div class="personal-information">
+                            <h2>Personal Details</h2>
+                            <table>
+                                <tr>
+                                    <td><strong>First Name:</strong></td>
+                                    <td><input type="text" name="fname" placeholder="Enter your first name" value="{{patient_info.fname}}" {% if patient_info %}readonly{% endif %} required></td>
+                                    <td><strong>Last Name:</strong></td>
+                                    <td><input type="text" name="lname" placeholder="Enter your last name"  value="{{patient_info.lname}}" {% if patient_info %}readonly{% endif %} required></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Date of Birth:</strong></td>
+                                    <td><input name="dob" type="date" value="{{ patient_info.dob| date:'Y-m-d' }}" {% if patient_info %}disabled{% endif %} required></td>
+                                    <td><strong>Gender:</strong></td>
+                                    <td>
+                                        <select name="gender" {% if patient_info %}disabled{% endif %} required>
+                                            <option value="select">Select</option>
+                                            <option value="male" {% if patient_info.gender == "male" %} selected {%endif%} >Male</option>
+                                            <option value="female" {% if patient_info.gender == "female" %} selected {%endif%}>Female</option>
+                                            <option value="other" {% if patient_info.gender == "other" %} selected {%endif%}>Other</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <hr>
+        
+                        <!-- Contact Information -->
+                        <div class="personal-information">
+                            <h2>Contact Information</h2>
+                            <table>
+                                <tr>
+                                    <td><strong>Phone Number:</strong></td>
+                                    <td><input name="phonenum" type="tel" placeholder="(123) 456-7890" value="{{patient_info.phone_number}}" {% if patient_info %}readonly{% endif %} required></td>
+                                    <td><strong>Email Address:</strong></td>
+                                    <td><input name="email" type="email" placeholder="john.doe@example.com" value="{{patient_info.email}}" {% if patient_info %}readonly{% endif %}  required></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <hr>
+        
+                        <!-- Address -->
+                        <div class="personal-information">
+                            <h2>Address</h2>
+                            <table>
+                                <tr>
+                                    <td><strong>Street Address:</strong></td>
+                                    <td><input name="street" type="text" placeholder="123 Main St" value="{{patient_info.street_address}}" {% if patient_info %}readonly{% endif %}  required></td>
+                                    <td><strong>City:</strong></td>
+                                    <td><input name="town" type="text" placeholder="Anytown" value="{{patient_info.city}}" {% if patient_info %}readonly{% endif %}  required></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>State:</strong></td>
+                                    <td><input name="state" type="text" placeholder="CA" value="{{patient_info.state}}" {% if patient_info %}readonly{% endif %}  required></td>
+                                    <td><strong>Postal Code:</strong></td>
+                                    <td><input name="pincode" type="text" placeholder="12345" value="{{patient_info.postal_code}}" {% if patient_info %}readonly{% endif %}  required></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Country:</strong></td>
+                                    <td><input name="country" value="{{patient_info.country}}" {% if patient_info %}readonly{% endif %}  type="text" placeholder="INDIA" required></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <hr>
+        
+                        <!-- Emergency Contact -->
+                        <div class="personal-information">
+                            <h2>Emergency Contact</h2>
+                            <table>
+                                <tr>
+                                    <td><strong>Contact Name:</strong></td>
+                                    <td><input value="{{patient_info.emergency_contact_name}}" {% if patient_info %}readonly{% endif %}  name="emergency_contact" type="text" placeholder="Jane Doe" required></td>
+                                    <td><strong>Phone Number:</strong></td>
+                                    <td><input value="{{patient_info.emergency_contact_phone}}" {% if patient_info %}readonly{% endif %} name="emergency_pnum" type="tel" placeholder="(123) 456-7891" required></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <hr>
+        
+                        <!-- Health Information -->
+                        <div class="personal-information">
+                            <h2>Health Information</h2>
+                            <table>
+                                <tr>
+                                    <td><strong>Medical History:</strong></td>
+                                    <td><input value="{{patient_info.medical_history}}" {% if patient_info %}readonly{% endif %} type="text" name="medical_history" placeholder="Enter medical history" ></td>
+                                    <td><strong>Current Medications:</strong></td>
+                                    <td><input value="{{patient_info.current_medications}}" {% if patient_info %}readonly{% endif %} type="text" name="current_medications" placeholder="Enter medications" ></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Allergies:</strong></td>
+                                    <td><input value = "{{patient_info.allergies}}" {% if patient_info %} readonly {%endif%} type="text" name="allergies" placeholder="Enter allergies"></td>
+                                    <td><strong>Chronic Conditions:</strong></td>
+                                    <td><input value = "{{patient_info.chronic_conditions}}" {% if patient_info %} readonly {%endif%} type="text" name="chronic_conditions" placeholder="Enter chronic conditions"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <hr>
+
+                        <div class="personal-information display-none">
+                            <h2>Health Metrics</h2>
+                            <table>
+                                <tr>
+                                    <td><strong>Height:</strong></td>
+                                    <td><input value = "{{patient_info.height}}" {% if patient_info %} readonly {%endif%} name="height" type="number" placeholder="cm" required></td>
+                                    <td><strong>Weight:</strong></td>
+                                    <td><input value = "{{patient_info.weight}}" {% if patient_info %} readonly {%endif%} name="weight" type="number" placeholder="kg" required></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>BMI:</strong></td>
+                                    <td><input value = "{{patient_info.bmi}}" {% if patient_info %} readonly {%endif%} name="bmi" type="text" placeholder="e.g., 23.1" required</td>
+                                    <td><strong>Blood Type:</strong></td>
+                                    <td><input value = "{{patient_info.blood_type}}" {% if patient_info %} readonly {%endif%} name="blood_type" type="text" placeholder="O+" required></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <hr>
+                        
+                        <div class="personal-information display-none">
+                            <h2>Vaccinations</h2>
+                            <table>
+                                <tr>
+                                    <td><strong>COVID-19:</strong></td>
+                                    <td>
+                                        <select name="covid_vaccination_status" {% if patient_info %} disabled {%endif%} required>
+                                            <option {% if patient_info.covid_vaccination_status == "Fully vaccinated" %} selected {%endif%} value="vaccinated">Fully vaccinated</option>
+                                            <option {% if patient_info.covid_vaccination_status == "Not vaccinated" %} selected {%endif%} value="not-vaccinated">Not vaccinated</option>
+                                        </select>
+                                    </td>
+                                    <td><strong>Flu:</strong></td>
+                                    <td>
+                                        <select name="flu_vaccination_status" {% if patient_info %} disabled {%endif%} required>
+                                            <option {% if patient_info.covid_vaccination_status == "annual" %} selected {%endif%} value="annual">Received annually</option>
+                                            <option {% if patient_info.covid_vaccination_status == "not-received" %} selected {%endif%} value="not-received">Not received</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <hr>
+                        
+                        <div class="personal-information display-none">
+                            <h2>Doctor and Specialist Information</h2>
+                            <table>
+                                <tr>
+                                    <td><strong>Primary Care Physician:</strong></td>
+                                    <td><input name="primary_care_physician" type="text" placeholder="Dr. Smith"></td>
+                                    <td><strong>Specialist:</strong></td>
+                                    <td><input name="specialist" type="text" placeholder="Dr. Johnson (Cardiologist)"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <hr>
+
+
+        
+                        <!-- Submit and Update Buttons -->
+                        <div class="btn">
+                            {% if patient_info %}
+                                <button type="button" class="btns update" onclick="enableEdit()">Update</button>
+                            {% else %}
+                                <button type="submit" class="btns">Submit</button>
+                            {% endif %}
+                            <button type="reset" class="btns">Reset</button> 
+                        </div>
+                    </div>
+                </form>
+                <form class="records-info-form" action="{% url 'records_view' %}" method="post">
+                    {%csrf_token%}
+                    <div class="records-maintain">
+                        <div class="details">
+                            <caption>
+                                <h1>MAINTAIN RECORDS</h1>
+                            </caption>
+                            <table class="record">
+                                <tr>
+                                    <td><strong>Doctor ID</strong></td>
+                                    <td><input type="text" placeholder="Enter doctor id" name="doctorId" required></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Date of Appointment</strong></td>
+                                    <td><input type="date" name="appointmentDate" required></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Condition</strong></td>
+                                    <td><input type="text" placeholder="Enter patient's condition" name="condition" required></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Medical Advice</strong></td>
+                                    <td><input type="text" placeholder="Enter doctor's advice" name="medicalAdvice" required></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Medications</strong></td>
+                                    <td><textarea placeholder="Medications prescribed by doctor" name="medications" required></textarea></td>
+                                </tr>
+                            </table>
+                
+                            <!-- Submit and Update Buttons -->
+                            <div class="btn">
+                                <button type="submit" class="btns record-btn">Submit</button>
+                                <button type="reset" class="btns record-btn">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="view-records">
+                    <caption>
+                        <h1>VIEW RECORDS</h1>
+                    </caption>
+                    <table>
+                        <tr>
+                            <th style="width: 150px;">Doctor Id</th>
+                            <th>Date Of Appointment</th>
+                            <th>Condition</th>
+                            <th>Medical Advice</th>
+                            <th>Medications</th>
+                        </tr>
+                        {% for record in records %}
+                        <tr>
+                            <td>{{ record.did_id }}</td>
+                            <td>{{ record.doa }}</td>
+                            <td>{{ record.condition }}</td>
+                            <td>{{ record.medical_advice }}</td>
+                            <td>{{ record.medications }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">No records found.</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                <div class="appointment-view view-records">
+                    <caption>
+                        <h1>APPOINTMENT LIST</h1>
+                    </caption>
+                    <table>
+                        <tr>
+                            <th>Appointment Id</th>
+                            <th style="width: 150px;">Doctor Id</th>
+                            <th>Date Of Appointment</th>
+                            <th>Status</th>
+                        </tr>
+                        {% for appointment in appointments %}
+                        <tr>
+                            <td>{{ appointment.aid }}</td>
+                            <td>{{ appointment.did_id }}</td>
+                            <td>{{ appointment.doa }}</td>
+                            {% if appointment.status == 'accepted'%}
+                            <td style="color:green;">{{appointment.status}}</td>
+                            {% elif appointment.status == 'rejected'%}
+                            <td style="color: red;">{{appointment.status}}</td>
+                            {%else%}
+                            <td style="color: rgb(172, 119, 20);">{{appointment.status}}</td>
+                            {%endif%}
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">No records found.</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+
+                <form class="appointment-form" action="{% url 'appointment_view' %}" method="POST">
+                    <div class="book-appointment">
+                        <div class="details">
+                            <caption>
+                                <h1>BOOK AN APPOINTMENT</h1>
+                            </caption>
+                                {%csrf_token%}
+                                <table class="appointment">
+                                    <tr>
+                                        <td><strong>Doctor ID</strong></td>
+                                        <td><input class="appointment-value-input" type="text" placeholder="Enter doctor id" name="did" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Date of appointment</strong></td>
+                                        <td><input class="appointment-value-input doa" type="date" name="doa" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Mobile</strong></td>
+                                        <td><input class="appointment-value-input" type="tel" placeholder="Enter mobile number" name="mobile" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Message</strong></td>
+                                        <td><textarea class="appointment-value-input" placeholder="Message" name="message" required></textarea></td>
+                                    </tr>
+                                </table>
+                                <div class="hide">Form submitted successfully and Waiting for approval</div>
+                                <!-- Hidden input for appointment ID -->
+                                <input type="hidden" class="appointmentId" name="appointmentId" >
+                                <button type="submit" class="btns appointment-record-btn">Submit</button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="doctors-list">
+                    <h2 style="font-size: 2rem; text-align : center;">DOCTORS</h2>
+                    <table class="appointments-table">
+                        <thead>
+                            <tr>
+                                <th>Doctor ID</th>
+                                <th>Doctor Name</th>
+                                <th>Specialization</th>
+                                <th>Hospital Id</th>
+                               
+                            </tr>
+                            {% for doctor in doctors%}
+                                <tr>
+                                    <td>{{ doctor.Id }}</td>
+                                    <td>{{ doctor.fname }} {{ doctor.lname }}</td>
+                                    <td>{{ doctor.specialization }}</td>
+                                    <td>{{ doctor.hid_id }}</td>
+                                </tr>
+                            {%endfor%}
+                        </thead>
+                        <tbody id="appointments-list">
+                            <!-- Appointments will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <form action="#" method="post">
+                    <table>
+                        <tr>
+                            <strong></strong>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </section>
+        
+    <script>
+        function hideAllSections() {
+            document.querySelector('.personal').style.display = 'none';
+            document.querySelector('.records-maintain').style.display = 'none';
+            document.querySelector('.welcome').style.display = 'none';
+            document.querySelector('.view-records').style.display = 'none';
+            document.querySelector('.book-appointment').style.display = 'none';
+            document.querySelector('.doctors-list').style.display = 'none';
+            document.querySelector('.appointment-view').style.display = 'none';
+        }
+        
+        function showSection(sectionClass) {
+            hideAllSections();
+            const section = document.querySelector(sectionClass);
+            if (sectionClass === '.welcome') {
+                section.style.display = 'flex';
+            } else {
+                section.style.display = 'block';
+            }
+        }
+        
+        document.querySelector('.side-bar-view-appointment').addEventListener('click', () => {
+            showSection('.appointment-view');
+        });
+        
+        document.querySelector('.side-bar-perosnal').addEventListener('click', () => {
+            showSection('.personal');
+        });
+        
+        document.querySelector('.side-bar-doctors').addEventListener('click', () => {
+            showSection('.doctors-list');
+        });
+        
+        document.querySelector('.side-bar-records').addEventListener('click', () => {
+            showSection('.records-maintain');
+        });
+        
+        document.querySelector('.side-bar-view-records').addEventListener('click', () => {
+            showSection('.view-records');
+        });
+        
+        document.querySelector('.side-bar-perosnal-appointment').addEventListener('click', () => {
+            showSection('.book-appointment');
+        });
+        
+        showSection('.welcome');
+        
+        
+        document.querySelector('.appointment-form').addEventListener('submit',(event)=>{
+            const appointmentid = 'APP' + Math.floor(Math.random() * 10000);
+            document.querySelector('.appointmentId').value = appointmentid;
+            console.log('Generated Appointment ID:', appointmentid);
+        })
+        document.querySelector('.personal-info-form').addEventListener('submit',(event)=>{
+            console.log('Personal details are submitted');
+        })
+        document.querySelector('.records-info-form').addEventListener('submit',(event)=>{
+            console.log('Record details are submitted');
+        })
+        function toggleLogout(){
+            const logoutButton = document.querySelector('.logout');
+            logoutButton.classList.toggle('show');
+        }
+        function enableEdit() {
+            document.querySelectorAll('.personal-info-form input, .personal-info-form select').forEach((element) => {
+                element.removeAttribute('readonly');
+                element.removeAttribute('disabled');
+            });
+            document.querySelector('.update').style.display = 'none'
+            const submitButton = document.createElement('button');
+            submitButton.type = 'submit';
+            submitButton.className = 'btns';
+            submitButton.textContent = 'Save Changes';
+            document.querySelector('.btn').appendChild(submitButton);
+        }
+        const today = new Date().toISOString().split('T')[0];
+        document.querySelector('.doa').setAttribute('min',today);
+    </script>
+</body>
+</html>

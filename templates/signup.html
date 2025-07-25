@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        textarea {
+            padding: 8px;
+            width: 100%;
+            font-size: 17px;
+            border-radius: 7px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.1); 
+            outline: none;
+            color: whitesmoke;
+        }
+        input[type="number"]::placeholder{
+            color: rgb(205, 200, 200);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form class="sign-up" action="{% url 'signup' %}" method="POST"> 
+            {% csrf_token %}
+            <caption><h1>SIGN UP</h1></caption>
+            <table>
+                <tr>
+                    <td style="width: 150px;"><strong>First Name</strong></td>
+                    <td style="width: 100%;"><input type="text" placeholder="First Name" name="fname" required></td>
+                </tr>
+                <tr>
+                    <td style="width: 150px;"><strong>Last Name</strong></td>
+                    <td style="width: 100%;"><input type="text" placeholder="Last Name" name="lname" required></td>
+                </tr>
+                <tr>
+                    <td style="width: 150px;"><strong>Username</strong></td>
+                    <td style="width: 100%;"><input type="text" placeholder="Username" name="username" required></td>
+                </tr>
+                <tr>
+                    <td><strong>Email</strong></td>
+                    <td><input type="email" placeholder="Your Email" name="email" required></td>
+                </tr>
+                <tr>
+                    <td><strong>Aadhaar Number</strong></td>
+                    <td><input style="
+                            padding: 8px;
+                            width: 100%;
+                            font-size: 17px;
+                            border-radius: 7px;
+                            border: 1px solid rgba(255, 255, 255, 0.2);
+                            background-color: rgba(255, 255, 255, 0.1); 
+                            outline: none;
+                            color: whitesmoke;
+                        " type="number" placeholder="Your Aadhaar Number" name="aadhar" required></td>
+                </tr>
+                <tr>
+                    <td><strong>Password</strong></td>
+                    <td><input type="password" placeholder="Your password" name="password" required></td>
+                </tr>
+            </table>
+            <input type="hidden" class="patientId" name="patientId">
+            <p style="font-size: 1rem;
+            color: rgb(216, 81, 8);" class="error">{{error}}</p>
+            <button type="submit" class="btn signup">Signup</button>
+            <p style="font-size: 15px; margin-right: 5px;">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+        </form>
+    </div>
+
+    <script>
+        document.querySelector('.sign-up').addEventListener('submit', (event) => {
+            const patientId = 'P' + Math.floor(Math.random() * 10000);
+            document.querySelector('.patientId').value = patientId;
+            console.log('Generated Patient ID:', patientId);
+        });
+        setTimeout(()=>{
+            document.querySelector('.error').innerHTML = ''
+        },2000)
+    </script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor's dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .up-down {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        .logout {
+            width: 180px;
+            position: absolute;
+            left: 8px;
+            top: 50px;
+            display: none;
+            background-color: #f5f0f0;
+            padding: 10px 20px;
+            padding-right: 45px;
+            border: none;
+            border-radius: 3px;
+        }
+        a{
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .logout.show {
+            display: block; 
+        }
+        .appointment-status{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px; 
+        }
+        .col {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; 
+        }
+        .row{
+            margin-right: 30px;
+            text-align: center;
+        }
+        .row p{
+            font-weight: 400;
+            font-size: 20px;
+        }
+        .box{
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            border-radius: 20px;
+            background-color: antiquewhite;
+        }
+        .box p{
+            font-size: 4rem;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-weight: 600;
+        }
+        .pending {
+            background-color: #E1B12C; 
+        }
+        
+        .accept {
+            background-color: #2D7C2D; 
+        }
+        
+        .reject {
+            background-color: #A51C30; 
+        }
+        .side-bar-column{
+            align-items: start;
+            margin-left: 20px;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .side-bar-column {
+            padding: 15px;
+        }
+        .personal-information {
+            display: flex;
+            flex-direction: column;
+        }
+        .side-bar-column span{
+            margin-right: 8px;
+        }
+        .sidebar {
+            max-width: 275px;
+        }
+        .svg1{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <section class="header">
+        <nav>
+            <div class="logo">
+                <h1>EHRMS</h1>
+            </div>
+            <div class="notice">
+                <svg class="svg1" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="white" d="M399 384.2C376.9 345.8 335.4 320 288 320l-64 0c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"/></svg>
+
+                <div class="up-down" onclick="toggleLogout()">
+                    <li style="cursor: pointer;">{{did}}</li>
+                    <li style="cursor: pointer;">{{dname}}</li>
+                    <div class="logout">
+                        <p style="padding-bottom: 8px;"><a style="color: black;" href="{% url 'logout' %}">Log out</a></p>
+                        <p><a style="color: black;" href="{% url 'doctor_forget_password' %}">Forget Password</a></p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </section>
+    <section>
+        <div class="grid-container">
+            <div class="sidebar">
+                <div class="side-bar-column icons side-bar-list" style="display: flex;">
+                    <span><i class="fa-solid fa-magnifying-glass-chart"></i></span>
+                    <div><p>Appointment Analytical</p></div>
+                </div>
+                <div class="side-bar-column icons side-bar-appointments" style="display: flex;">
+                    <span><i class="fa-solid fa-clipboard-list"></i></span>
+                    <div><p>View Appointments</p></div>
+                </div>
+                <div class="side-bar-column side-bar-records">
+                    <span><i class="fa-solid fa-database"></i></span>
+                    <div><p>Records Maintain</p></div>
+                </div>
+            </div>
+            <div class="main-part">
+                <div class="welcome">
+                    <div>Hi, <span>{{dname}}</span></div>
+                    <div class="front">Welcome</div>
+                </div>
+
+                <div class="appointment-status">
+                    <h1>APPOINTMENT STATUS</h1><br>
+                        <div class="col">
+                            <div class="row">
+                                <div class="box pending" ><p>{{pending}}</p></div>
+                                <p>New Appointments</p>
+                            </div>
+                            <div class="row ">
+                                <div class="box accept"><p>{{accept}}</p></div>
+                            <p>Accepted</p>
+                            </div>
+                            <div class="row">
+                                <div class="box  reject"><p>{{reject}}</p></div>
+                                <p>Rejected</p>
+                            </div>
+                    </div>
+                </div>
+
+                <form class="records-info-form" action="{% url 'records_view2' %}" method="post">
+                    {%csrf_token%}
+                    <div class="records-maintain">
+                        <div class="details">
+                            <caption>
+                                <h1>MAINTAIN RECORDS</h1>
+                            </caption>
+                            <table class="record">
+                                <tr>
+                                    <td><strong>Patient ID</strong></td>
+                                    <td><input type="text" placeholder="Enter patient id" name="patientId" required></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Date of Appointment</strong></td>
+                                    <td><input type="date" name="appointmentDate" required></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Condition</strong></td>
+                                    <td><input type="text" placeholder="Enter patient's condition" name="condition" required></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Medical Advice</strong></td>
+                                    <td><input type="text" placeholder="Enter doctor's advice" name="medicalAdvice" required></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Medications</strong></td>
+                                    <td><textarea placeholder="Medications prescribed by doctor" name="medications" required></textarea></td>
+                                </tr>
+                            </table>
+                
+                            <!-- Submit and Update Buttons -->
+                            <div class="btn">
+                                <button type="submit" class="btns record-btn">Submit</button>
+                                <button type="reset" class="btns record-btn">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- <div class="view-appointments">
+
+                </div> -->
+                <div class="view-appointments">
+                    <h2 style="font-size: 2rem; text-align : center;">YOUR APPOINTMENTS</h2>
+                    <table class="appointments-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 150px;">Appointment ID</th>
+                                <th style="width: 150px;">Patient ID</th>
+                                <th style="width: 150px;">Date</th>
+                                <th>Message</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody id="appointments-list">
+                            {% for appointment in appointments %}
+                            <tr>
+                                <td>{{ appointment.aid }}</td>
+                                <td>{{ appointment.pid_id }}</td>
+                                <td>{{ appointment.doa }}</td>
+                                <td>{{ appointment.message }}</td>
+                                {%if appointment.status == 'accepted' or appointment.status == 'rejected' %}
+                                    {%if appointment.status == 'accepted'%}
+                                        <td>Accepted</td>
+                                    {%else%}
+                                        <td>Rejected</td>
+                                    {%endif%}
+                                {%else%}
+                                <td>
+                                    <form action="{% url 'update_appointment_status' appointment.aid 'accepted' %}" method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btns accept">Accept</button>
+                                    </form>
+                                    <form action="{% url 'update_appointment_status' appointment.aid 'rejected' %}" method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btns reject">Reject</button>
+                                    </form>
+                                </td>
+                                {%endif%}
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5">No records found.</td>
+                            </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                        
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+        
+    <script>
+        let isCLicked = true
+        document.querySelector('.records-maintain').style.display = 'none'
+        document.querySelector('.welcome').style.display = 'flex'
+        document.querySelector('.view-appointments').style.display = 'none'
+        document.querySelector('.appointment-status').style.display = 'none'
+
+        document.querySelector('.side-bar-list').addEventListener('click',()=>{
+            document.querySelector('.records-maintain').style.display = 'none'
+            document.querySelector('.welcome').style.display = 'none'
+            document.querySelector('.view-appointments').style.display = 'none'
+            document.querySelector('.appointment-status').style.display = 'flex'
+        })
+
+        document.querySelector('.side-bar-appointments').addEventListener('click',()=>{
+            document.querySelector('.records-maintain').style.display = 'none'
+            document.querySelector('.welcome').style.display = 'none'
+            document.querySelector('.appointment-status').style.display = 'none'
+            document.querySelector('.view-appointments').style.display = 'block'
+        })
+
+        document.querySelector('.side-bar-records').addEventListener('click',()=>{
+            document.querySelector('.records-maintain').style.display = 'block'
+            document.querySelector('.welcome').style.display = 'none'
+            document.querySelector('.view-appointments').style.display = 'none'
+            document.querySelector('.appointment-status').style.display = 'none'
+        })
+
+        document.querySelector('.records-info-form').addEventListener('submit',(event)=>{
+            document.querySelector('.records-info-form').reset();
+            console.log('Record details are submitted');
+        })
+        function toggleLogout(){
+            const logoutButton = document.querySelector('.logout');
+            logoutButton.classList.toggle('show');
+        }
+
+    </script>
+</body>
+</html>
