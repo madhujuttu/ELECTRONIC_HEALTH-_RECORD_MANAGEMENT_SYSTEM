@@ -1,0 +1,322 @@
+/* General Styles */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.body {
+    font-family: 'Roboto', Arial, sans-serif;
+    color: #333333;
+    background-color: #f0f0f0
+}
+
+.header {
+    width: 100%;
+    height: 60px;
+    background-color: #3A506B;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    z-index: 1000; 
+
+}
+.header h1{
+    padding-top:10px ;
+    color: white;
+}
+nav {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px; 
+}
+
+.logo {
+    font-size: 1.5rem;
+    color: white;
+    font-weight: bold;
+}
+
+nav div img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; 
+    
+}
+.notice{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+nav li {
+    list-style: none;
+    font-size: 1.2rem;
+    color: white;
+    margin-left: 10px;
+}
+.sidebar {
+    max-width: 270px;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    top: 60px;
+    background: linear-gradient(180deg, #3A506B, #5BC0BE); 
+    padding-top: 70px;
+}
+.personal{
+    display: none;
+}
+
+.side-bar-column {
+    display: flex;
+    flex-direction: column;
+    border: none;
+    margin: 0 10px;
+    margin-bottom: 20px;
+    align-items: center;
+    border-radius: 20px;
+    color: #ffffff; 
+    font-weight: 500;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+    font-size: 1.3rem;
+}
+.side-bar-column i{
+    display: flex;
+    flex-wrap: wrap;
+}
+.side-bar-column:hover {
+    background-color: #5BC0BE; 
+    color: #1C2541;
+}
+
+
+.main-part {
+    /* background-image: url(wallhaven-qdx1yd_2560x1600.png);  */
+    /* background-size:cover; */
+    padding: 20px;
+    margin-left: 270px;
+    margin-top: 70px;
+}
+
+h1 {
+    font-size: 2rem;
+    text-align: center;
+    color: #1C2541; 
+}
+
+h2 {
+    padding-left: 10px;
+    color: #1C2541;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+td {
+    padding: 10px;
+    vertical-align: top;
+}
+
+.personal-information {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+}
+
+.personal-information input, .personal-information select {
+    padding: 5px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+hr {
+    color: #CCCCCC;
+}
+
+/* Button Styles */
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btns {
+    margin-top: 20px;
+    padding: 8px 15px;
+    border-radius: 5px;
+    background-color: #FF6B6B; /* Soft red for buttons */
+    color: white;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border: none;
+}
+
+.btns:hover {
+    background-color: #FF4B4B; /* Darker red for hover */
+}
+.details{
+    max-width: 1000px;
+    font-size: 17px;
+}
+h1{
+    margin-bottom: 20px;
+}
+input, select,textarea {
+    padding: 5px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+.record{
+    padding: 30px ;
+}
+input::placeholder{
+    font-weight: lighter;
+}
+textarea{
+    height: 100px;
+}
+.record-btn{
+    margin-top: 35px;
+}
+.record input, .record textarea{
+    padding: 10px;
+    font-size: medium;
+}
+.record input::placeholder, .record textarea::placeholder{
+    font-size: medium;
+}
+.welcome{
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.welcome div{
+    font-size: 1.7rem;
+    margin-bottom: 10px;
+}
+.welcome div span{
+    font-size: 4rem;
+    color: crimson;
+}
+.welcome .front{
+    font-size: 3rem;
+}
+.view-records  table{
+    border-collapse: collapse;
+}
+.view-records table td{
+    text-align: start;
+    margin-left: 10px;
+}
+.view-records th{
+    padding: 10px;
+}
+.view-records td,.view-records th{
+    border: 1px solid black;
+}
+
+.view-records .doa{
+    text-align: center;
+}
+.view-records .id{
+    text-align: center;
+}
+.view-records tr:nth-child(even){
+    background-color: lightgray;
+}
+.hide{
+    display: none;
+    color: #c22020;
+    text-align: center;
+    font-size: 20px;
+    max-width: 500px;
+    margin-left: 270px;
+}
+.appointment-record-btn{
+    margin-left: 450px;
+}
+.appointments-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: left;
+}
+
+.appointments-table th, .appointments-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+.appointments-table th {
+    background-color: #f4f4f4;
+}
+
+.appointments-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.appointments-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+/* General Table Styles */
+.view-records table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: left;
+    table-layout: fixed;
+    border: 1px solid #ddd;
+}
+
+.view-records th,.view-records td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+.view-records th {
+    background-color: #f4f4f4;
+}
+
+.view-records tr:hover {
+    background-color: #f1f1f1;
+}
+
+.view-records tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Specific Styling for Existing Elements */
+.view-records table td, .view-records table th {
+    text-align: start;
+    margin-left: 10px;
+}
+
+.view-records .doa, .view-records .id {
+    text-align: center;
+}
+
+/* Remove previously defined background for alternating rows */
+.view-records tr:nth-child(even) {
+    background-color: #f9f9f9; /* Match appointments table */
+}

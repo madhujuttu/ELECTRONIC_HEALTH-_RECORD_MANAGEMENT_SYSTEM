@@ -1,0 +1,108 @@
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: whitesmoke;
+}
+body {
+    font-family: 'Roboto', Arial;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(/static/images/pexels-tomfisk-1692693.jpg); 
+    background-size:cover;
+    color: #ffffff;
+}
+h1{
+    text-align: center;
+    font-size: 2.5rem;
+    color: #FF8C00;margin-bottom: 20px;
+}
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(15px); 
+    width: 500px;
+    transition: transform 0.3s ease;
+}
+
+.container:hover {
+    transform: scale(1.02); 
+}
+
+.container p {
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+input[type='text'], input[type='password'], input[type='email'],select {
+    padding: 8px;
+    width: 100%;
+    font-size: 17px;
+    border-radius: 7px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.1); 
+    outline: none;
+    color: whitesmoke;
+}
+
+input[type='text']::placeholder,input[type='email']::placeholder, input[type='password']::placeholder{
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 17px;
+}
+table {
+    width: 100%;
+}
+
+td {
+    padding: 12px;
+    font-size: 1rem;
+}
+
+.btn {
+    width: 100%;
+    margin-top: 5px;
+    background-color: #FF8C00; 
+    border: none;
+    padding: 12px;
+    color: white;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #FF7400;
+    transform: scale(1.05); 
+}
+
+p a {
+    font-size: 15px;
+    text-decoration: none;
+    color: whitesmoke;
+    margin-bottom: 10px;
+}
+
+p a:hover {
+    color: #FF8C00;
+}
+
+.last-line {
+    font-size: 10px;
+}
+
+.signup {
+    margin-top: 10px;
+}
+table{
+    width: 100%;
+    table-layout: fixed;
+}

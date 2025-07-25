@@ -1,0 +1,325 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    margin-top: 60px;
+}
+html {
+    scroll-behavior: smooth;
+}
+.header{
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(rgba(4,9,13,0.7),rgba(4,9,13,0.7)),url('/static/images/pexels-tomfisk-1692693.jpg');
+    background-position: center;
+    background-size: cover;
+}
+nav{
+    background-color: #fff;
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1000;
+    align-items: center;
+}
+nav h1{
+    margin-left: 20px;
+    color: #000;
+    font-size: 3rem; 
+}
+nav .nav-links ul{
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+}
+li{
+    padding: 20px;
+}
+nav .nav-links li a{
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+}
+nav .nav-links li::after{
+    content: '';
+    width: 0%;
+    height: 2px;
+    background: #FF8C00;
+    display: flex;
+    margin: auto;
+    transition: all 0.2s;
+}
+nav .nav-links li:hover::after{
+    width: 100%;
+}
+.text-box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+    text-align: center;
+    color: #fff;
+}
+.text-box h1{
+    font-size: 2rem; 
+    margin-bottom: 30px;
+}
+.text-box p{
+    margin-top: 20px;
+    font-size: 1rem; 
+    margin-bottom: 40px;
+    color: lightgray;
+}
+.text-box a{
+    text-decoration: none;
+    color: white;
+}
+button{
+    padding: 20px;
+    width: 300px;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid #4a4a4a;
+    border-radius: 16px;
+    opacity: 0.8;
+    cursor: pointer;
+    transition: 0.25s;
+}
+button:hover{
+    background: #FF8C00;
+    opacity: 2;
+}
+nav .fa{
+    display: none;
+}
+
+
+
+.appointment-guide,.instructions{
+    background-color: #f9f9f9;
+    padding: 10px;
+    text-align: center;
+    padding-bottom: 50px;
+    padding-top: 30px;
+}
+.appointment-guide h1,.instructions h1{
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+.appointment-guide .row,.instructions .row{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.guide-box,.instruction-box{
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 30px;
+    width: 30%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: tranform 1s ease-in-out;
+}
+.guide-box:hover,
+.instruction-box:hover{
+    transform: scale(1.05);
+}
+.guide-box h2,
+.instruction-box h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.guide-box p,
+.instruction-box p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+.guide-box p {
+    font-size: 1rem;
+    margin-bottom: 40px;
+}
+
+.doctor-instructions {
+    padding: 50px;
+    text-align: center;
+    background-color: #f9f9f9; 
+}
+.doctor-instructions h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+.doctor-instructions p {
+    font-size: 1rem;
+    margin-bottom: 40px;
+}
+.row {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.instruction-box {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 30%; 
+    margin: 10px; 
+}
+.instruction-box h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+.instruction-box p {
+    font-size: 1rem;
+}
+
+.patient-instructions {
+    padding: 50px;
+    text-align: center;
+    background-color: #f9f9f9; 
+}
+.patient-instructions h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+.patient-instructions p {
+    font-size: 1rem;
+    margin-bottom: 40px;
+}
+.row {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.instruction-box {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 30%; 
+    margin: 10px; 
+}
+.instruction-box h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+.instruction-box p {
+    font-size: 1rem;
+}
+
+footer {
+    background-color: #282c34; 
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+}
+.footer-container {
+    max-width: 1200px;
+    margin: auto;
+}
+.footer-container h4 {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+.footer-container p {
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+.footer-links ul {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    padding: 0;
+}
+.footer-links ul li a {
+    color: white;
+    text-decoration: none;
+}
+.footer-links ul li a:hover {
+    text-decoration: underline;
+}
+.social-icons {
+    margin-top: 20px;
+}
+.social-icons i {
+    margin: 0 10px;
+    font-size: 1.5rem;
+    color: #FF8C00; 
+}
+footer p {
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+
+
+.contact{
+    padding: 50px 20px;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: space-around;
+}
+.left-section h1{
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+.left-section p{
+    font-size: 1rem;
+}
+.right-section{
+    display:flex;
+    flex-direction: column;
+    padding: 10px;
+}
+table{
+    max-width: 350px;
+    width: 100%;
+    table-layout: fixed;
+}
+/* td{
+    padding:6px;
+} */
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 7px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
+.contact-btn {
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #FF8C00; 
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.contact-btn:hover {
+    background-color: #e67e22; 
+}
+h3{
+    color: rgb(66, 114, 66);
+    margin-bottom: 15px;
+}
+.left-section p{
+    margin-bottom: 13px;
+}
+.left-section i{
+    margin-right: 10px;
+}
+.left-side-column{
+    width: 100px;
+}
+.right-side-column{
+    width: 100%;
+}
